@@ -162,4 +162,23 @@ create table story_approval_history(
 	entry_date DATE NOT NULL
 );
 
+insert into genre_committees (
+VALUES
+(default, 1, 'NON-FICTION'),
+(default, 2, 'NON-FICTION'),
+(default, 3, 'NON-FICTION'),
+(default, 4, 'NON-FICTION'),
+(default, 5, 'NON-FICTION'),
+(default, 6, 'FICTION'),
+(default, 7, 'FICTION'),
+(default, 8, 'FICTION'),
+(default, 9, 'FICTION'),
+(default, 10, 'FICTION'),
+(default, 1, 'FAN-FICTION'),
+(default, 6, 'FAN-FICTION'),
+(default, 7, 'FAN-FICTION'),
+(default, 4, 'FAN-FICTION'),
+(default, 8, 'FAN-FICTION')
+);
+
 
