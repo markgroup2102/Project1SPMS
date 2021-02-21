@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>      
+  <session-factory>
+    <!-- Database connection settings -->
+    <property name="connection.driver_class">org.postgressql.Driver</property>
+    <property name="connection.url">jdbc:postgressql://rev2102.cncizezosbtp.us-east-2.rds.amazonaws.com:5432?currentSchema=project1</property>
+    <property name="connection.username">postgres</property>
+    <property name="connection.password">rev2102password</property>
+    <property name="show_sql">true</property>
+        
+    <!-- This maps a specific object-->
+    <mapping class="com.revature.hibernate.Role" />
+     
+  </session-factory>
+</hibernate-configuration>
