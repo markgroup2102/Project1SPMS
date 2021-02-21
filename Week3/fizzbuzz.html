@@ -1,0 +1,37 @@
+<html>
+    <body>
+        <input id="in" type="number">
+        <button id="submit" type="button" onclick="clicky()">Button!</button>
+
+        <script>
+            let number = 0;
+            let b = document.getElementById("submit"); 
+            var clicky = function(){
+                let number = document.getElementById("in").value;
+                for(let i = 1; i <= number; i++){
+                    if(i % 15 === 0){
+                        console.log("fizzbuzz");
+                    }else if (i % 5 === 0){
+                        console.log("buzz");
+                    }else if (i % 3 === 0){
+                        console.log("fizz");
+                    }else{
+                        console.log(i)
+                    }
+                }
+                return number;
+            }
+            
+            number.onclick = clicky()
+
+            
+
+            
+
+            
+            
+            
+            
+        </script>
+    </body>
+</html>
