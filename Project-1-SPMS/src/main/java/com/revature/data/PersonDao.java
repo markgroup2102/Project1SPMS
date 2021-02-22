@@ -9,10 +9,19 @@ public interface PersonDao<T> {
 	
 	public List<T> getPitchesOnHold(T entity);
 	
-	public List<T> getStoryDrafts(T entity);
-	
 	public T approvePitch(T entity);
 	
+	/**
+	 * Deny pitch automatically applies a reason 
+	 * as it updates the status to reject - whatever
+	 * @param entity
+	 * @return
+	 */
 	public T denyPitch(T entity);
 	
+	public T submitDraft(T entity);
+	
+	public T approveDraft(T entity);
+	
+	public T requestChangesToDraft(T entity);
 }

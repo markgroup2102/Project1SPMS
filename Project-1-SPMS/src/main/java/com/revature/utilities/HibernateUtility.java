@@ -35,6 +35,7 @@ public class HibernateUtility {
 	
 	public static SessionFactory getSessionFactory() {
 		SessionFactory sf = null;
+		
 		return sf;
 	}
 	
