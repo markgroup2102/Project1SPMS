@@ -14,6 +14,9 @@
         <!-- show all generate SQL query -->
         <property name="show_sql">true</property>    
         
+        <!-- Set the current session context -->
+        <property name="current_session_context_class">thread</property>
+        
         <!-- This maps a specific object-->
         <mapping class="com.revature.hibernate.Role" />
         <mapping class="com.revature.hibernate.AdditionalDetailsMessage" />
