@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="story_pitches")
-public class StoryPitches {
+public class StoryPitch {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
@@ -44,7 +44,7 @@ public class StoryPitches {
 	@Column(name="priority")
 	private String priority;
 	
-	public StoryPitches() {
+	public StoryPitch() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -157,7 +157,7 @@ public class StoryPitches {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		StoryPitches other = (StoryPitches) obj;
+		StoryPitch other = (StoryPitch) obj;
 		return authorId == other.authorId && Objects.equals(description, other.description)
 				&& Objects.equals(estCompDate, other.estCompDate) && Objects.equals(genre, other.genre)
 				&& Objects.equals(id, other.id) && Objects.equals(pageCount, other.pageCount)

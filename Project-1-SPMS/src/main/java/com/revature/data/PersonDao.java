@@ -2,14 +2,17 @@ package com.revature.data;
 
 import java.util.List;
 
-public interface PersonDao<T> {
-	public  T submitNewPitch(T entity);
+import com.revature.hibernate.StoryDraft;
+import com.revature.hibernate.StoryPitch;
+
+public interface PersonDao {
+	public  StoryPitch submitNewPitch(StoryPitch entity);
 	
-	public  T submitPitchOnHold(T entity);
+	public  StoryPitch submitPitchOnHold(StoryPitch entity);
 	
-	public List<T> getPitchesOnHold(T entity);
+	public List<StoryPitch> getPitchesOnHold(StoryPitch entity);
 	
-	public T approvePitch(T entity);
+	public StoryPitch approvePitch(StoryPitch entity);
 	
 	/**
 	 * Deny pitch automatically applies a reason 
@@ -17,11 +20,11 @@ public interface PersonDao<T> {
 	 * @param entity
 	 * @return
 	 */
-	public T denyPitch(T entity);
+	public StoryPitch denyPitch(StoryPitch entity);
 	
-	public T submitDraft(T entity);
+	public StoryDraft submitDraft(StoryDraft entity);
 	
-	public T approveDraft(T entity);
+	public StoryDraft approveDraft(StoryDraft entity);
 	
-	public T requestChangesToDraft(T entity);
+	public StoryDraft requestChangesToDraft(StoryDraft entity);
 }
