@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>      
+      <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">org.postgressql.Driver</property>
+        <property name="connection.url">jdbc:postgressql://rev2102.cncizezosbtp.us-east-2.rds.amazonaws.com:5432?currentSchema=project1</property>
+        <property name="connection.username">postgres</property>
+        <property name="connection.password">rev2102password</property>
+        <property name="show_sql">true</property>
+        
+        <!-- show all generate SQL query -->
+        <property name="show_sql">true</property>    
+        
+        <!-- This maps a specific object-->
+        <mapping class="com.revature.hibernate.Role" />
+        <mapping class="com.revature.hibernate.AdditionalDetailsMessage" />
+        <mapping class="com.revature.hibernate.Genre" />
+        <mapping class="com.revature.hibernate.GenreCommittee" />
+        <mapping class="com.revature.hibernate.RolPerson.javae" />
+        <mapping class="com.revature.hibernate.Person" />
+        <mapping class="com.revature.hibernate.Priority" />
+        <mapping class="com.revature.hibernate.StoryApprovalHistory" />
+        <mapping class="com.revature.hibernate.StoryArtifact" />
+        <mapping class="com.revature.hibernate.StoryDraft.java" />
+        <mapping class="com.revature.hibernate.StoryPitches.java" />
+        <mapping class="com.revature.hibernate.StoryPitchStatus.java" />
+        <mapping class="com.revature.hibernate.StoryType" />
+         
+      </session-factory>
+</hibernate-configuration>
