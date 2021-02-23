@@ -2,27 +2,12 @@ package com.revature.data;
 
 import java.util.List;
 
-public interface StoryPitchDao<T> {
+import com.revature.hibernate.StoryPitch;
+
+public interface StoryPitchDao {
+	public StoryPitch addStoryPitch(StoryPitch storyPitch);
 	
-	public T createPitch(T entity);
+	public StoryPitch updateStoryPitch(StoryPitch storyPitch);
 	
-	/**
-	 * What we can do here is "Update pitch where id = x;"
-	 * Thus we can pass in any pitch with an updated value 
-	 * like status or priority 
-	 * @param <T> an entity of type T this should be a pitch
-	 * @param entity a pitch
-	 * @return
-	 */
-	public T updatePitch(T entity);
-	
-	public T getPitchById(T entity);
-	
-	/**
-	 * Potentially this would be where status = something 
-	 * like an assistnat manager would set their status to pending
-	 * @param entity
-	 * @return
-	 */
-	public List<T> getPitchByGenre(T entity);
+	public StoryPitch readStoryPitch(StoryPitch storyPitch);
 }

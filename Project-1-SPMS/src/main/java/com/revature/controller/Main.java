@@ -1,9 +1,12 @@
 package com.revature.controller;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
-import com.revature.utilities.AWSConnection;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+
+import com.revature.utilities.HibernateUtility;
 
 public class Main {
 
@@ -12,12 +15,13 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		Connection conn = AWSConnection.getRemoteConnection();
-		try {
-			conn.prepareStatement("SELECT * FROM people");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
+		try (SessionFactory sf = HibernateUtility.getSessionFactory1();){
+			Session s = sf.openSession();
+			System.out.println("SOmrthing");
+			s.close();
+		}catch(Exception e ) {
+			
 		}
 	}
 

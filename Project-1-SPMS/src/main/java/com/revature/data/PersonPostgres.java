@@ -2,9 +2,15 @@ package com.revature.data;
 
 import java.util.List;
 
+import com.revature.hibernate.Person;
 import com.revature.hibernate.StoryDraft;
 import com.revature.hibernate.StoryPitch;
 
+/**
+ * A postgresSQL implementation of PersonDao
+ * @author mwhis
+ *
+ */
 public class PersonPostgres implements PersonDao {
 
 	public PersonPostgres() {
@@ -12,51 +18,29 @@ public class PersonPostgres implements PersonDao {
 	}
 
 	@Override
-	public StoryPitch submitNewPitch(StoryPitch entity) {
+	public Person addPerson(Person person) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StoryPitch submitPitchOnHold(StoryPitch entity) {
+	public Person updatePerson(Person person) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<StoryPitch> getPitchesOnHold(StoryPitch entity) {
+	public Person readPerson(Person person) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public StoryPitch approvePitch(StoryPitch entity) {
+	public Person removePerson(Person person) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
-	public StoryPitch denyPitch(StoryPitch entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StoryDraft submitDraft(StoryDraft entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StoryDraft approveDraft(StoryDraft entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public StoryDraft requestChangesToDraft(StoryDraft entity) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

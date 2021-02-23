@@ -2,29 +2,46 @@ package com.revature.data;
 
 import java.util.List;
 
+import com.revature.hibernate.Person;
 import com.revature.hibernate.StoryDraft;
 import com.revature.hibernate.StoryPitch;
 
+/**
+ * This adds CRUD methodology to the people table 
+ * @author mwhis
+ *
+ */
 public interface PersonDao {
-	public  StoryPitch submitNewPitch(StoryPitch entity);
-	
-	public  StoryPitch submitPitchOnHold(StoryPitch entity);
-	
-	public List<StoryPitch> getPitchesOnHold(StoryPitch entity);
-	
-	public StoryPitch approvePitch(StoryPitch entity);
-	
 	/**
-	 * Deny pitch automatically applies a reason 
-	 * as it updates the status to reject - whatever
-	 * @param entity
+	 * Adds a person to the people table
+	 * @param person
 	 * @return
 	 */
-	public StoryPitch denyPitch(StoryPitch entity);
+	public Person addPerson(Person person);
 	
-	public StoryDraft submitDraft(StoryDraft entity);
+	/**
+	 * Updates a person in the people table 
+	 * This will be used mostly to update their current points
+	 * @param person
+	 * @return
+	 */
+	public Person updatePerson(Person person);
 	
-	public StoryDraft approveDraft(StoryDraft entity);
+	/**
+	 * Read a person from the table into memory 
+	 * @param person
+	 * @return
+	 */
+	public Person readPerson(Person person);
 	
-	public StoryDraft requestChangesToDraft(StoryDraft entity);
+	/**
+	 * Not Implemented yet
+	 * Will be used to remove people from the database
+	 * @param person
+	 * @return
+	 */
+	public Person removePerson(Person person);
+	
+	
+	
 }
