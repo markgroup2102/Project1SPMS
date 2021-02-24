@@ -2,8 +2,11 @@ package com.revature.data;
 
 import java.util.List;
 
-public interface StoryApprovalHistoryDao<T> {
-	public T createEntry(T entity);
+import com.revature.hibernate.StoryApprovalHistory;
+
+public interface StoryApprovalHistoryDao {
+	public StoryApprovalHistory addStoryApprovalHistory(StoryApprovalHistory sah);
 	
-	public List<T> getEntriesByStoryId(T entity);
+	public List<StoryApprovalHistory> getStoryApprovalHistory(StoryApprovalHistory sah);
+
 }
