@@ -2,7 +2,7 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.hibernate.StoryDraft;
+import com.revature.models.StoryDraft;
 
 public class StoryDraftService {
 

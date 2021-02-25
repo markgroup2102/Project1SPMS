@@ -1,10 +1,11 @@
 package com.revature.data;
 
+import java.io.Serializable;
 import java.util.List;
 
-import com.revature.hibernate.Person;
-import com.revature.hibernate.StoryDraft;
-import com.revature.hibernate.StoryPitch;
+import com.revature.models.Person;
+import com.revature.models.StoryDraft;
+import com.revature.models.StoryPitch;
 
 /**
  * This adds CRUD methodology to the people table 
@@ -17,7 +18,7 @@ public interface PersonDao {
 	 * @param person
 	 * @return
 	 */
-	public Person addPerson(Person person);
+	public void addPerson(Person person);
 	
 	/**
 	 * Updates a person in the people table 
@@ -25,14 +26,14 @@ public interface PersonDao {
 	 * @param person
 	 * @return
 	 */
-	public Person updatePerson(Person person);
+	public void updatePerson(Person person);
 	
 	/**
 	 * Read a person from the table into memory 
 	 * @param person
 	 * @return
 	 */
-	public Person readPerson(Person person);
+	public Person readPersonById(Person person);
 	
 	/**
 	 * Not Implemented yet

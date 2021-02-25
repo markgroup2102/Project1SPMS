@@ -2,11 +2,11 @@ package com.revature.data;
 
 import java.util.List;
 
-import com.revature.hibernate.StoryApprovalHistory;
+import com.revature.models.StoryApprovalHistory;
 
 public interface StoryApprovalHistoryDao {
-	public StoryApprovalHistory addStoryApprovalHistory(StoryApprovalHistory sah);
+	public void addStoryApprovalHistory(StoryApprovalHistory sah);
 	
-	public List<StoryApprovalHistory> getStoryApprovalHistory(StoryApprovalHistory sah);
+	public List<StoryApprovalHistory> getStoryApprovalHistoryByStoryId(Integer story_id);
 
 }

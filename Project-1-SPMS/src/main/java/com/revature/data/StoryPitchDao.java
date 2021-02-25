@@ -2,7 +2,7 @@ package com.revature.data;
 
 import java.util.List;
 
-import com.revature.hibernate.StoryPitch;
+import com.revature.models.StoryPitch;
 
 public interface StoryPitchDao {
 	public StoryPitch addStoryPitch(StoryPitch storyPitch);

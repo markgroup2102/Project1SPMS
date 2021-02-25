@@ -2,7 +2,7 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.hibernate.StoryPitch;
+import com.revature.models.StoryPitch;
 
 public class StoryPitchService {
 

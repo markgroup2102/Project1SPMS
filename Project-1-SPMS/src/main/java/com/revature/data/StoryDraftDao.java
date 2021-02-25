@@ -2,7 +2,7 @@ package com.revature.data;
 
 import java.util.List;
 
-import com.revature.hibernate.StoryDraft;
+import com.revature.models.StoryDraft;
 
 public interface StoryDraftDao {
 	

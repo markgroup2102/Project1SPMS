@@ -2,9 +2,9 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.hibernate.Person;
-import com.revature.hibernate.StoryDraft;
-import com.revature.hibernate.StoryPitch;
+import com.revature.models.Person;
+import com.revature.models.StoryDraft;
+import com.revature.models.StoryPitch;
 
 public class PersonService {
 
@@ -78,4 +78,12 @@ public class PersonService {
 		return null;
 	}
 
+	public Person getPoints(Person person) {
+		return person;
+		
+	}
+	
+	public void updatePersonPointTotal(Person person) {
+		
+	}
 }

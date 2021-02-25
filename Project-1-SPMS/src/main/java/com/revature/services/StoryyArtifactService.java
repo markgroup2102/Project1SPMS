@@ -2,7 +2,7 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.hibernate.StoryArtifact;
+import com.revature.models.StoryArtifact;
 
 public class StoryyArtifactService {
 

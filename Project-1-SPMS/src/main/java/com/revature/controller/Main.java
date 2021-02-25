@@ -1,12 +1,9 @@
 package com.revature.controller;
 
-
-
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
-
-import com.revature.utilities.HibernateUtility;
+import com.revature.models.Person;
+import com.revature.utilities.HibernateUtil;
 
 public class Main {
 
@@ -15,14 +12,11 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-		
-		try (SessionFactory sf = HibernateUtility.getSessionFactory1();){
-			Session s = sf.openSession();
-			System.out.println("SOmrthing");
-			s.close();
-		}catch(Exception e ) {
-			
-		}
+		HibernateUtil hu = HibernateUtil.getHibernateUtil();
+		Session sesh = hu.getSession();
+		Person p = sesh.get(Person.class, 3);
+		System.out.println(p.toString());
+		sesh.close();
 	}
 
 }

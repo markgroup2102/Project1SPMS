@@ -1,6 +1,6 @@
 package com.revature.data;
 
-import com.revature.hibernate.GenreCommittee;
+import com.revature.models.GenreCommittee;
 
 /**
  * Not used in current version

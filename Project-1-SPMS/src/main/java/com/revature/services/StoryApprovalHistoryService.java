@@ -2,8 +2,8 @@ package com.revature.services;
 
 import java.util.List;
 
-import com.revature.hibernate.StoryApprovalHistory;
-import com.revature.hibernate.StoryPitch;
+import com.revature.models.StoryApprovalHistory;
+import com.revature.models.StoryPitch;
 
 public class StoryApprovalHistoryService {
 

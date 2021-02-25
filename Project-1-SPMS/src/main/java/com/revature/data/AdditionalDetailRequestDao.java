@@ -1,6 +1,6 @@
 package com.revature.data;
 
-import com.revature.hibernate.AdditionalDetailsMessage;
+import com.revature.models.AdditionalDetailsMessage;
 
 public interface AdditionalDetailRequestDao {
 	
@@ -9,7 +9,7 @@ public interface AdditionalDetailRequestDao {
 	 * @param adm
 	 * @return
 	 */
-	public AdditionalDetailsMessage createAdditionalDetailsMessage(
+	public void createAdditionalDetailsMessage(
 			AdditionalDetailsMessage adm);
 	
 	/**
@@ -18,7 +18,7 @@ public interface AdditionalDetailRequestDao {
 	 * @param adm
 	 * @return
 	 */
-	public AdditionalDetailsMessage updateAdditionalDetailsMessage(
+	public void updateAdditionalDetailsMessage(
 			AdditionalDetailsMessage adm);
 	
 	/**
