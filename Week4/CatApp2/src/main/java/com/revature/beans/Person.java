@@ -3,11 +3,25 @@ package com.revature.beans;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name="person")
 public class Person {
+	@Id
+	@Column(name="id")
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String username;
+	@Column(name="passwd")
 	private String password;
+	@ManyToMany
+	@JoinTable(name="cats",
+			joinColumns=@JoinColumn(name="person_id"),
+			inverseJoinColumns=@JoinColumn(name="cat_id"))
 	private Set<Cat> cats;
+	@ManyToOne
+	@JoinColumn(name="role_id")
 	private Role role;
 	
 	public Person() {
