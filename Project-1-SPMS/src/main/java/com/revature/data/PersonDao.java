@@ -33,7 +33,7 @@ public interface PersonDao {
 	 * @param person
 	 * @return
 	 */
-	public Person readPersonById(Person person);
+	public Person readPersonById(Integer id);
 	
 	/**
 	 * Not Implemented yet
@@ -42,7 +42,6 @@ public interface PersonDao {
 	 * @return
 	 */
 	public Person removePerson(Person person);
-	
-	
+
 	
 }

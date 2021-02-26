@@ -2,26 +2,47 @@ package com.revature.services;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
+import com.revature.data.DaoFactory;
+import com.revature.data.PersonDao;
 import com.revature.models.Person;
 import com.revature.models.StoryDraft;
 import com.revature.models.StoryPitch;
 
 public class PersonService {
-
+	private static Logger log = Logger.getLogger(PersonService.class.getName());
+	
 	public PersonService() {
 		// TODO Auto-generated constructor stub
 	}
 	
 	/**
-	 * We should check their id in the controller/delegate level 
+	 * Returns a person by their id
 	 * @param person
 	 * @return
 	 */
-	public Person getPersonById(Person person) {
-		return person;
+	public Person getPersonById(Integer id) {
+		log.trace("Getting person by id");
+		if(id == null) {
+			log.debug("Null id passed, returning null");
+			return null;
+		}
+		PersonDao pd = DaoFactory.getPersonDao();
+		return pd.readPersonById(id);
 	}
 	
+	/**
+	 * Submits a story pitch 
+	 * Some parameters will be calculated here
+	 * such as priority, 
+	 * @param storyPitch
+	 * @return
+	 */
 	public StoryPitch submitStoryPitch(StoryPitch storyPitch) {
+		// What needs to happen here? 
+		// SO we need to see how many points the author has 
+		//  Does the author have enough points to subit a story? 
 		return storyPitch;
 	}
 	

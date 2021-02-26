@@ -54,10 +54,10 @@ public class PersonHibernate implements PersonDao {
 	}
 
 	@Override
-	public Person readPersonById(Person person) {
-		log.trace("Reading person by id: "+ person.getId());
+	public Person readPersonById(Integer id) {
+		log.trace("Reading person by id: "+ id);
 		Session s = hu.getSession();
-		person = s.get(Person.class, person.getId());
+		Person person = s.get(Person.class, id);
 		s.close();
 		return person;
 	}

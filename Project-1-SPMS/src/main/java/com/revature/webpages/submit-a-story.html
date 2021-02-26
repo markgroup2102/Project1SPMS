@@ -1,7 +1,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/style.css">
-        <script type="text/javascript" src='cookie.js'></script>
+        <script type="module" src='cookie.js'></script>
     </head>
     <body>
 
@@ -31,13 +31,14 @@
             </ul>
         </nav>
         
-        <script src="./cookie.js" type="module">
+        <script src="cookie.js" type="module">
             
             let xform;
             function gatherIntel(){
                 
             };
-            import {user} from './cookie.js'
+            
+            import {user} from 'cookie';
             
             //let {user} = await import('./cookie.js');
             document.getElementById("form-field-fname").innerHTML = user.first_name;    

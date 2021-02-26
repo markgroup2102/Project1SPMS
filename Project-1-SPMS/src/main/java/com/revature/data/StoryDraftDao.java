@@ -8,7 +8,7 @@ public interface StoryDraftDao {
 	
 	public StoryDraft addStoryDraft(StoryDraft storyDraft);
 	
-	public StoryDraft updateStoryDraft(StoryDraft storyDraft);
+	public void updateStoryDraft(StoryDraft storyDraft);
 	
 
 }
