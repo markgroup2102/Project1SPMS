@@ -32,8 +32,13 @@ public class StoryPitch {
 	@Column(name="page_count")
 	private Integer pageCount;
 	
-	@Column(name="type")
-	private String type;
+
+	// Here we need a join column because 
+	// A Story pitch HAS as type and a type has many properties 
+	@ManyToOne
+	@JoinColumn(name="type_id")
+	private StoryType type;
+	
 	
 	@Column(name="est_comp_date")
 	private LocalDate estCompDate;
@@ -111,11 +116,11 @@ public class StoryPitch {
 		this.pageCount = pageCount;
 	}
 
-	public String getType() {
+	public StoryType getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(StoryType type) {
 		this.type = type;
 	}
 

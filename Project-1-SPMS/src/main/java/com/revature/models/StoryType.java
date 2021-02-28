@@ -18,6 +18,8 @@ public class StoryType {
 	
 	@Column(name="weighted_value")
 	private Integer weightedValue;
+	
+	
 	public StoryType() {
 		// TODO Auto-generated constructor stub
 	}

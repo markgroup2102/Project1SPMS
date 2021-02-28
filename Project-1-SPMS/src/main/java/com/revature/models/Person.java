@@ -56,10 +56,10 @@ public class Person {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-	public Integer getPoints_in_queue() {
+	public Integer getPointsInQueue() {
 		return pointsInQueue;
 	}
-	public void setPoints_in_queue(Integer points_in_queue) {
+	public void setPointsInQueue(Integer points_in_queue) {
 		this.pointsInQueue = points_in_queue;
 	}
 

@@ -1,0 +1,130 @@
+<html>
+<!-- Original Code template by author dcode https://www.youtube.com/watch?v=zvt8ff3d63Q-->
+<!-- Stripe design based on template from https://css-tricks.com/stripes-css/ -->
+<!-- Font border instructions provided by https://www.w3schools.com/cssref/css3_pr_text-shadow.asp-->
+<!-- Changed some colors and fonts added title and page intro -->
+
+<head>
+    <title> Welcome To S.P.A.M.S. Story Pitch And Management System</title>
+</head>
+
+<style>
+    #form-messages {
+        background: repeating-linear-gradient(
+        45deg,
+        yellow,
+        yellow 10px,
+        darkgrey 10px,
+        darkgrey 20px
+        );
+        background-color: yellow;
+        border: 5px solid black;
+        color:red;
+        display: none;
+        font-size: 22px;
+        font-weight: bold;
+        text-shadow:1px 1px 3px black, -1px -1px 3px black;
+        text-align: center;
+        margin-bottom: 10px;
+        padding: 10px 25px;
+        max-width: 250px;
+
+    }
+</style>
+
+<body>
+    <h1>Welcome "Publish this!" <br>
+        We're a bit nerdy and we like to have fun, <br>
+        despite that quirk we take our work seriously <br>
+        and strive to deliver the highest quality in services <br>
+    </h1>
+    <h1> Login and get SPAMS </h1>
+    <div class ="form">
+        <!-- error messages -->
+        <ul id="form-messages"></ul>
+
+        <!-- user name-->
+        <label for="username">Login ID Number:</label><br>
+        <input id= "username" type="text" spellcheck="false"><br>
+
+        <!-- pass word -->
+        <label for="password">The Sword of Pas (Password):</label><br>
+        <input id= "password" type="text" ><br>
+
+        <!-- loging button-->
+        <button id= "btn-submit" type="submit">Captain's Log(in)</button><br>
+    </div>
+
+    <script>
+        const form = {
+            username: document.getElementById('username'),
+            password: document.getElementById('password'),
+            submit: document.getElementById('btn-submit'),
+            messages: document.getElementById('form-messages')
+        }
+
+        // when we click the form submit button 
+        form.submit.addEventListener('click', ()=> {
+            if(form.username === null 
+            || form.username === ''){
+                const li = document.createElement("li");
+                li.textContent = 'WARNING: Empty username not allowed!';
+                form.appendChild(li);
+            }
+
+            // This is where AJAX comes in. 
+            const request = new XMLHttpRequest();
+            request.onload = () => {
+                let responseObject = null;
+
+                // Attempt to parse the JSON response
+                try {
+                    responseObject = JSON.parse(resquest.responseText);
+                } catch (error) {
+                    console.error('Could not parse the JSON');
+                }
+
+                if(responseObject){
+                    handleResponse(responseObject);
+                }
+            }
+                                // This gets the value from the object form Above
+                                // from the field username and the field password 
+            const requestData = `username=${form.username.value}&password=${form.password.value}`;
+            console.log(requestData);
+            // Server will now expect to see a kv pair string 
+            
+            request.open('POST', 'login?userid=form');
+            request.responseType = 'json';
+            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            request.send(requestData);
+            request.onreadystatechange = () =>{
+                if(request.readyState === XMLHttpRequest.DONE
+                && request.status === 200){
+
+                }
+            }
+
+            function handleResponse(responseObject){
+                if(responseObject.ok){
+                    location.href = 'login.html';
+                }else{
+                    // step one clear list of elements 
+                    // This removes all children while the parent has children 
+                    while(form.messages.firstChild){
+                        form.messages.removeChild(form.messages.firstChild);
+                    }
+
+                    responseObject.messages.array.forEach(message => {
+                        const li = document.createElement('li');
+                        li.textContent = message;
+                        form.messages.appendChild(li);
+                    });
+                    
+                    form.messages.style.display ="block";
+                }
+            }
+        })
+    </script>
+</body>
+</html>

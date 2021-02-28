@@ -2,11 +2,16 @@ package com.revature.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import com.revature.data.StoryTypeDao;
+import com.revature.hibernate.StoryTypeHibernate;
 import com.revature.models.Person;
+import com.revature.models.StoryPitch;
 
 class PersonServiceTest {
 	
@@ -43,10 +48,153 @@ class PersonServiceTest {
 		Person p = persServ.getPersonById(null);
 		assertNull(p);
 	}
+	
+	@Test
+	void validateNewPitch() {
+		StoryPitch storyPitch = new StoryPitch();
+		assertFalse(persServ.validatePitchHasAllFields(storyPitch ));	
+	}
+	
+	@Test
+	void validateNewPitch1() {
+		StoryPitch storyPitch = new StoryPitch();
+		storyPitch.setAuthorId(1);
+		assertFalse(persServ.validatePitchHasAllFields(storyPitch ));	
+	}
+	@Test
+	void validateNewPitch2() {
+		StoryPitch storyPitch = new StoryPitch();
+		storyPitch.setAuthorId(1);
+		storyPitch.setPageCount(1);
+		assertFalse(persServ.validatePitchHasAllFields(storyPitch ));	
+	}
+	
+	@Test
+	void validateNewPitch3() {
+		StoryPitch storyPitch = new StoryPitch();
+		storyPitch.setAuthorId(1);
+		storyPitch.setPageCount(1);
+		storyPitch.setDescription(" ");
+		assertFalse(persServ.validatePitchHasAllFields(storyPitch ));	
+	}
+	
+	@Test
+	void validateNewPitch4() {
+		StoryPitch storyPitch = new StoryPitch();
+		storyPitch.setAuthorId(1);
+		storyPitch.setPageCount(1);
+		storyPitch.setDescription(" ");
+		storyPitch.setGenre("FICTION");
+		assertFalse(persServ.validatePitchHasAllFields(storyPitch ));	
+	}
+	
+	@Test
+	void validateNewPitch5() {
+		StoryPitch storyPitch = new StoryPitch();
+		storyPitch.setAuthorId(1);
+		storyPitch.setPageCount(1);
+		storyPitch.setDescription(" ");
+		storyPitch.setGenre("FICTION");
+		storyPitch.setTagLine(" ");
+		storyPitch.setTitle(" ");
+		assertFalse(persServ.validatePitchHasAllFields(storyPitch ));	
+	}
+	
+	@Test
+	void testValidateUserIsAuthor() {
+		assertTrue(persServ.validateUserIsAuthor(11));
+	}
+	
+	@Test
+	void testValidateUserIsAuthorNull() {
+		assertFalse(persServ.validateUserIsAuthor(null));
+	}
+	
+	@Test
+	void testValidateUserIsAuthorBadRequest() {
+		assertFalse(persServ.validateUserIsAuthor(-1));
+	}
+	
+	@Test
+	void testValidateUserIsAuthorPersonNotAuthor() {
+		assertFalse(persServ.validateUserIsAuthor(1));
+	}
+	
+	@Test
+	void testGetIdOfStoryTypeByPageCount() {
+		//StoryTypeDao s = new StoryTypeHibernate();
+		//s.getAllStoryTypes().forEach(f->System.out.println(f.toString()));;
+		//System.out.println(persServ.getIdOfStoryTypeByPageCount(8));
+		assertTrue(persServ.getStoryTypeByPageCount(8).getId() == 4);
+	}
+	
+	@Test
+	void testGetIdOfStoryTypeByPageCount2() {
+		//System.out.println(persServ.getIdOfStoryTypeByPageCount(null));
+		assertTrue(persServ.getStoryTypeByPageCount(12).getId() == 3);
+	}
+	
+	@Test
+	void testGetIdOfStoryTypeByPageCount3() {
+		//System.out.println(persServ.getIdOfStoryTypeByPageCount(null));
+		assertTrue(persServ.getStoryTypeByPageCount(21).getId() == 2);
+	}
+	
+	@Test
+	void testGetIdOfStoryTypeByPageCount4() {
+		//System.out.println(persServ.getIdOfStoryTypeByPageCount(null));
+		assertTrue(persServ.getStoryTypeByPageCount(26).getId() == 1);
+	}
+	
+	@Test
+	void testGetIdOfStoryTypeByPageCount5() {
+		//System.out.println(persServ.getIdOfStoryTypeByPageCount(null));
+		assertTrue(persServ.getStoryTypeByPageCount(51).getId() == 1);
+	}
+	
+	@Test
+	void testGetIdOfStoryTypeByPageCount6() {
+		//System.out.println(persServ.getIdOfStoryTypeByPageCount(null));
+		assertTrue(persServ.getStoryTypeByPageCount(-1).getId() == 1);
+	}
+	
+	@Test
+	void testGetIdOfStoryTypeByPageCountNull() {
+		//System.out.println(persServ.getIdOfStoryTypeByPageCount(null));
+		assertTrue(persServ.getStoryTypeByPageCount(null).getId() == 1);
+	}
 
 	@Test
-	void testSubmitStoryPitch() {
-		fail("Not yet implemented");
+	void testSubmitStoryPitchNull() {
+		StoryPitch sp = new StoryPitch();
+		assertNull(persServ.submitStoryPitch(null));
+	}
+	
+	@Test
+	void testSubmitStoryPitchEverthingNull() {
+		StoryPitch sp = new StoryPitch();
+		sp.setAuthorId(0);
+		sp.setDescription(null);
+		sp.setEstCompDate(null);
+		sp.setPageCount(null);
+		sp.setTagLine(null);
+		sp.setTitle(null);
+		assertNull(persServ.submitStoryPitch(null));
+	}
+	
+	@Test
+	// THis test has been disable because it will mess up the DB 
+	// if it's active
+	void testSubmitStoryPitchEverthingNotNull() {
+		StoryPitch sp = new StoryPitch();
+		sp.setAuthorId(11);
+		sp.setDescription("Good book");
+		sp.setEstCompDate(LocalDate.of(2025, 12, 12));
+		sp.setGenre("FAN-FICTION");
+		sp.setPageCount(18);
+		sp.setTagLine("Good!");
+		sp.setTitle("The good book");
+		//assertNotNull(persServ.submitStoryPitch(sp));
 	}
 
 	@Test
