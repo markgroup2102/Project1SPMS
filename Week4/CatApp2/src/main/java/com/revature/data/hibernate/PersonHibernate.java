@@ -4,9 +4,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+<<<<<<< HEAD
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+=======
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+
+import org.hibernate.Session;
+>>>>>>> 8f84665d5132689b9ab7918072f380b21f448319
 
 import com.revature.beans.Person;
 import com.revature.data.PersonDAO;
@@ -14,7 +23,12 @@ import com.revature.exceptions.NonUniqueUsernameException;
 import com.revature.utils.HibernateUtil;
 
 public class PersonHibernate implements PersonDAO {
+<<<<<<< HEAD
 	
+=======
+	private HibernateUtil hu = HibernateUtil.getHibernateUtil();
+
+>>>>>>> 8f84665d5132689b9ab7918072f380b21f448319
 	@Override
 	public Person getById(Integer id) {
 		Session s = HibernateUtil.getHibernateUtil().getSession();
@@ -89,9 +103,25 @@ public class PersonHibernate implements PersonDAO {
 
 	@Override
 	public Person getByUsername(String username) {
+<<<<<<< HEAD
 		Session s = HibernateUtil.getHibernateUtil().getSession();
 		Person p = s.get(Person.class, username);
 		s.close();
+=======
+		Session s = hu.getSession();
+		// Criteria API: make queries w/ programmatic syntax
+		CriteriaBuilder cb = s.getCriteriaBuilder();
+		CriteriaQuery<Person> criteria = cb.createQuery(Person.class);
+		Root<Person> root = criteria.from(Person.class);
+		
+		Predicate predicateForUsername = cb.equal(root.get("username"), username);
+		// Predicate predicateForPassword = cb.equal(root.get("password"), password);
+		// Predicate predicateForBoth = cb.and(predicateForUsername, predicateForPassword);
+		
+		criteria.select(root).where(predicateForUsername);
+		
+		Person p = s.createQuery(criteria).getSingleResult();
+>>>>>>> 8f84665d5132689b9ab7918072f380b21f448319
 		return p;
 	}
 
