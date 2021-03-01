@@ -46,4 +46,6 @@ class StoryTypeHibernateTest {
 		StoryTypeDao std = DaoFactory.getStoryTypeDao();
 		std.getAllStoryTypes().forEach(story->System.out.println(story.toString()));
 	}
+	
+	
 }

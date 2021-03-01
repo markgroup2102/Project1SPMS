@@ -6,6 +6,7 @@ import com.revature.hibernate.StoryApprovalHistoryHibernate;
 import com.revature.hibernate.StoryArtifactHibernate;
 import com.revature.hibernate.StoryDraftHibernate;
 import com.revature.hibernate.StoryPitchHibernate;
+import com.revature.hibernate.StoryPitchStatusHibernate;
 import com.revature.hibernate.StoryTypeHibernate;
 
 public class DaoFactory {
@@ -36,6 +37,10 @@ public class DaoFactory {
 	
 	public static StoryPitchDao getStoryPitchDao() {
 		return new StoryPitchHibernate();
+	}
+	
+	public static StoryPitchStatusDao getStoryPitchStatusDao() {
+		return new StoryPitchStatusHibernate();
 	}
 	
 	public static StoryTypeDao getStoryTypeDao() {

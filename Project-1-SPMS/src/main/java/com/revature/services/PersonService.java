@@ -4,21 +4,27 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
 import com.revature.data.DaoFactory;
 import com.revature.data.PersonDao;
 import com.revature.data.StoryPitchDao;
+import com.revature.data.StoryPitchStatusDao;
 import com.revature.data.StoryTypeDao;
 import com.revature.models.Person;
 import com.revature.models.StoryDraft;
 import com.revature.models.StoryPitch;
+import com.revature.models.StoryPitchStatus;
 import com.revature.models.StoryType;
+import com.revature.utilities.HibernateUtil;
 
 public class PersonService {
 	private static Logger log = Logger.getLogger(PersonService.class.getName());
 	private PersonDao personDao = DaoFactory.getPersonDao();
 	private StoryTypeDao storyTypeDao = DaoFactory.getStoryTypeDao();
 	private StoryPitchDao storyPitchDao = DaoFactory.getStoryPitchDao();
+	private StoryPitchStatusDao storyPitchStausDao = DaoFactory.getStoryPitchStatusDao();
 	public PersonService() {
 		// TODO Auto-generated constructor stub
 	}
@@ -127,6 +133,7 @@ public class PersonService {
 		final Integer MAX_POINTS = 100;
 		Person person = null;
 		StoryType storyType = null;
+		String storyPitchStatusLevel = "pending-level1-approval";
 		
 		// validate the form has all fields
 		if(storyPitch == null ||
@@ -152,6 +159,7 @@ public class PersonService {
 		// Now we can set the story's type and Priority!
 		storyPitch.setType(storyType);
 		storyPitch.setPriority("NORMAL");
+		//storyPitchStatusLevel = "";
 		
 //		 Now we need to check how many points the author has 
 //		 and ask, can the author "afford" to submit this story?
@@ -162,45 +170,85 @@ public class PersonService {
 		Integer authorPointsBudget = MAX_POINTS - person.getPointsInQueue(); 
 		Integer storyCost = storyPitch.getType().getWeightedValue();
 		if(authorPointsBudget >= storyCost) {
-			storyPitch.setStatus("pending-level1-approval");
+			storyPitch.setStatus(storyPitchStatusLevel);
 			addStoryPoints(person, storyCost);
 		}else {
 			storyPitch.setStatus("on-hold");
 		}
 		
-		System.out.println(storyPitch.toString());
-		System.out.println(person.toString());
+		//System.out.println(storyPitch.toString());
+		//System.out.println(person.toString());
 		// Now we need to update the DB
+		// Since we want to make sure both go through
 		// 1) Add the Storypitch 
 		storyPitchDao.addStoryPitch(storyPitch);
 		
 		// 2) Update the author's points
+		// There's a risk here that addpitch will fail, 
+		// but there's no easy way to test for this
 		personDao.updatePerson(person);
-		
 		return storyPitch;
 	}
 	
+
+	
 	/**
-	 * Here we can change what we want by changing the status 
-	 * in story pitch 
-	 * Example 
-	 * 	Author view queue status != rejected 
-	 *  Author view on hold status = 
+	 * This will show the author a list of all their stories 
+	 * by status 
 	 * @param storyPitch
 	 * @return
 	 */
-	public List<StoryPitch> getStoryPitchesByStatus(StoryPitch storyPitch){
-		// what if we tried to do something like 
-		return null;
+	public List<StoryPitch> getStoryPitches(Integer authorId, String status){
+		log.trace("Retrieving story pitches by author and status");
+		log.info("USER STORY: Author can resubmit stories on hold,"
+				+ "\n this lets us get 'on hold' stories for the user" );
 		
-	}
-	
-	public List<StoryPitch> getPitchesOnHold(StoryPitch entity) {
+		log.trace("Checking for null values");
+		if(status == null || authorId == null) {
+			log.debug("Null value detected, returning null");
+			return null;
+		}
+		
+		boolean goodStatus = this.validateStoryPitchStatus(status);
+		if(goodStatus) {
+			return storyPitchDao.readStoryPitch(authorId, status);
+		}
 		return null;
 	}
 	
-	public StoryPitch approvePitch(StoryPitch entity) {
+	/**
+	 * This is used to get story pitches by status priority and genre.
+	 * This will return all story pitches by priority 
+	 * At a higher level we can choose to get story pitches only by a
+	 * a specific priority :)
+	 * @param authorId
+	 * @param status
+	 * @param genre
+	 * @return
+	 */
+	public List<StoryPitch> getStoryPitches(
+			 String status, String priority, String genre){
+		log.trace("Retrieving story pitches by author,status, and genre");
+		log.info("USER STORY: This will let editors see store pitches "
+				+ " in their genre that need approval");
+		
+		log.trace("Checking for null values");
+		if(status == null || priority == null || genre == null) {
+			log.debug("Null value detected, returning null");
+			return null;
+		}
+		
+		boolean goodStatus = this.validateStoryPitchStatus(status);
+		
+		if(goodStatus) {
+			return storyPitchDao.readStoryPitch(status, priority, genre);
+		}
 		return null;
+	}
+	
+	
+	public void approvePitch(Integer storyPitchId) {
+		
 	}
 	
 	/**
@@ -242,7 +290,7 @@ public class PersonService {
 	 * @return
 	 * @throws Exception 
 	 */
-	public Integer updatePersonPointTotal(Person person) throws Exception {
+	public Integer subtractStoryPoints(Person person, Integer pointsToSubtract) throws Exception {
 		throw new Exception(); // this has not been implemented yet 
 		//return getPoints(person.getPointsInQueue());
 	}
@@ -259,5 +307,19 @@ public class PersonService {
 		Integer pointsInQueue = person.getPointsInQueue();
 		person.setPointsInQueue(pointsInQueue + pointsToAdd);
 		return person.getPointsInQueue();
+	}
+	
+	public boolean validateStoryPitchStatus(String status) {
+		boolean goodStatus = false;
+		if(status == null) {
+			return false;
+		}
+		
+		for(StoryPitchStatus spud : storyPitchStausDao.getAllStoryPitchStatuses()) {
+			if(status.equals(spud.getStatus())) {
+				goodStatus = true;
+			}
+		}
+		return goodStatus;
 	}
 }

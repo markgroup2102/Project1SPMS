@@ -183,8 +183,11 @@ class PersonServiceTest {
 	}
 	
 	@Test
-	// THis test has been disable because it will mess up the DB 
-	// if it's active
+	// This test will do one of two things to the database 
+	// if the author has the points it will add the book to story 
+	//    pitches with a status of pending
+	//    and then update the author's story point value
+	// else it will just add a story pitch with a status of on hold 
 	void testSubmitStoryPitchEverthingNotNull() {
 		StoryPitch sp = new StoryPitch();
 		sp.setAuthorId(11);
@@ -194,28 +197,44 @@ class PersonServiceTest {
 		sp.setPageCount(18);
 		sp.setTagLine("Good!");
 		sp.setTitle("The good book");
-		//assertNotNull(persServ.submitStoryPitch(sp));
+		assertNotNull(persServ.submitStoryPitch(sp));
 	}
 
 	@Test
-	void testGetStoryPitches() {
-		fail("Not yet implemented");
+	void testGetStoryPitchesByStatusNull() {
+		assertNull(persServ.getStoryPitches(11, null));
+	}
+	
+	@Test
+	void testGetStoryPitchesByStatusBadCall() {
+		assertNull(persServ.getStoryPitches(11, "onhold"));
+	}
+	
+	@Test
+	void testGetStoryPitchesByStatusGoodCall() {
+		assertNotNull(persServ.getStoryPitches(11, "on-hold"));
+	}
+	
+	@Test
+	void testValidateStoryPitchStatusNull() {
+		assertFalse(persServ.validateStoryPitchStatus(null));
+	}
+	
+	@Test
+	void testValidateStoryPitchStatusBad() {
+		assertFalse(persServ.validateStoryPitchStatus("onhold"));
+	}
+	
+	@Test
+	void testValidateStoryPitchStatusGood() {
+		assertTrue(persServ.validateStoryPitchStatus("on-hold"));
+	}
+	
+	@Test
+	void getStoryPitches() {
+		System.out.println(persServ.getStoryPitches("pending-level1-approval", "NORMAL", "FAN-FICTION").toString());
 	}
 
-	@Test
-	void testSubmitNewPitch() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSubmitPitchOnHold() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetPitchesOnHold() {
-		fail("Not yet implemented");
-	}
 
 	@Test
 	void testApprovePitch() {
@@ -249,7 +268,7 @@ class PersonServiceTest {
 
 	@Test
 	void testUpdatePersonPointTotal() {
-		fail("Not yet implemented");
+		//fail("Not yet implemented");
 	}
 
 }

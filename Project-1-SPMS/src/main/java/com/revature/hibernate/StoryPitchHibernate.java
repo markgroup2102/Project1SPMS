@@ -56,11 +56,48 @@ public class StoryPitchHibernate implements StoryPitchDao {
 	public List<StoryPitch> readStoryPitchByGenre(String genre) {
 		log.trace("Returning story pitches by genre");
 		Session s = hu.getSession();
-		String query = "FROM StoryPitch WHERE genre = " +genre;
+		String query = "FROM StoryPitch WHERE genre = '" +genre+"'";
 		Query<StoryPitch> q = s.createQuery(query, StoryPitch.class);
 		List<StoryPitch> StoryPitch = q.getResultList();
 		s.close();
 		return StoryPitch;
 	}
+	
+	@Override
+	public List<StoryPitch> readStoryPitchByStatus(String status) {
+		log.trace("Returning story pitches by status");
+		Session s = hu.getSession();
+		String query = "FROM StoryPitch sp WHERE sp.status = '" +status+ "'";
+		Query<StoryPitch> q = s.createQuery(query, StoryPitch.class);
+		List<StoryPitch> StoryPitch = q.getResultList();
+		s.close();
+		return StoryPitch;
+	}
+
+	@Override
+	public List<StoryPitch> readStoryPitch(Integer authorId, String status) {
+		log.trace("Returning story pitches by authorId and status");
+		Session s = hu.getSession();
+		String query = "FROM StoryPitch sp WHERE sp.authorId = "+ authorId +" AND sp.status = '" +status +"'";
+		Query<StoryPitch> q = s.createQuery(query, StoryPitch.class);
+		List<StoryPitch> StoryPitch = q.getResultList();
+		s.close();
+		return StoryPitch;
+	}
+
+	@Override
+	public List<StoryPitch> readStoryPitch(String status, String priority, String genre) {
+		log.trace("Returning story pitches by status, and genre");
+		Session s = hu.getSession();
+		String query = "FROM StoryPitch sp WHERE "
+				+ "sp.status = '" +status 
+				+"' AND sp.genre = '" + genre 
+				+ "' AND sp.priority = '" + priority + "'";
+		Query<StoryPitch> q = s.createQuery(query, StoryPitch.class);
+		List<StoryPitch> StoryPitch = q.getResultList();
+		s.close();
+		return StoryPitch;
+	}
+	
 
 }

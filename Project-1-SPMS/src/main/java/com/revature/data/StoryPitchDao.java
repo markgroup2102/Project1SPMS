@@ -12,4 +12,10 @@ public interface StoryPitchDao {
 	public StoryPitch readStoryPitch(StoryPitch storyPitch);
 	
 	public List<StoryPitch> readStoryPitchByGenre(String genre);
+
+	public List<StoryPitch> readStoryPitchByStatus(String status);
+	
+	public List<StoryPitch> readStoryPitch(Integer authorId, String status);
+	
+	public List<StoryPitch> readStoryPitch(String status, String priority, String genre);
 }
