@@ -20,7 +20,7 @@
         background-color: yellow;
         border: 5px solid black;
         color:red;
-        display: none;
+        display: block;
         font-size: 22px;
         font-weight: bold;
         text-shadow:1px 1px 3px black, -1px -1px 3px black;
@@ -28,17 +28,19 @@
         margin-bottom: 10px;
         padding: 10px 25px;
         max-width: 250px;
-
     }
 </style>
 
-<body>
+<body id='main'>
+    <center>
     <h1>Welcome "Publish this!" <br>
+        Story Pitch Managment System<br>
         We're a bit nerdy and we like to have fun, <br>
         despite that quirk we take our work seriously <br>
         and strive to deliver the highest quality in services <br>
     </h1>
-    <h1> Login and get SPAMS </h1>
+  
+    <h1> Login for SPAMS </h1>
     <div class ="form">
         <!-- error messages -->
         <ul id="form-messages"></ul>
@@ -52,80 +54,56 @@
         <input id= "password" type="text" ><br>
 
         <!-- loging button-->
-        <button id= "btn-submit" type="submit">Captain's Log(in)</button><br>
+        <button id= "btn-submit" type="button">Captain's Log(in)</button><br>
     </div>
-
+    </center>
     <script>
         const form = {
             username: document.getElementById('username'),
             password: document.getElementById('password'),
             submit: document.getElementById('btn-submit'),
             messages: document.getElementById('form-messages')
+        } 
+        // This will add an event listener to the form button
+        // event listener takes two parameters 
+        //                         1 the type  2 the function
+        form.submit.addEventListener('click' , ()=>{
+            let parent = document.querySelector('#form-messages')
+            DCF(parent);
+            checkField(form.username.textContent);
+
+            let xttp = new XMLHttpRequest();
+            xttp.open('POST', "/login="+  form.username.nodeValue);
+           // xttp.onreadystatechange
+            xttp.send();
+
+        });
+
+        function checkField(string){
+            if(string === null || string === ''){
+                var warn = document.getElementById('form-messages');
+                var warnelem = document.createElement("li");
+                warnelem.innerHTML = "WARNING: Blank field detected!";
+                warn.appendChild(warnelem);
+            }else{
+                let parent = document.querySelector('#form-messages')
+                DCF(parent);
+            }
         }
 
-        // when we click the form submit button 
-        form.submit.addEventListener('click', ()=> {
-            if(form.username === null 
-            || form.username === ''){
-                const li = document.createElement("li");
-                li.textContent = 'WARNING: Empty username not allowed!';
-                form.appendChild(li);
+        function DCF(badParent){
+            if(badParent === null){
+                return;
             }
-sessionStorage.setItem
-localStorage.setItem
-            // This is where AJAX comes in. 
-            const request = new XMLHttpRequest();
-            request.onload = () => {
-                let responseObject = null;
-
-                // Attempt to parse the JSON response
-                try {
-                    responseObject = JSON.parse(resquest.responseText);
-                } catch (error) {
-                    console.error('Could not parse the JSON');
-                }
-
-                if(responseObject){
-                    handleResponse(responseObject);
-                }
+            while(badParent.firstChild){
+                badParent.removeChild(badParent.firstChild);
             }
-                                // This gets the value from the object form Above
-                                // from the field username and the field password 
-            const requestData = `username=${form.username.value}&password=${form.password.value}`;
-            console.log(requestData);
-            // Server will now expect to see a kv pair string 
-            
-            request.open('POST', 'login?userid='+JSON.stringify(form));
-            request.responseType = 'json';
-            request.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            request.send(requestData);
-            request.onreadystatechange = () =>{
-                if(request.readyState === XMLHttpRequest.DONE
-                && request.status === 200){
+        }
+        
+        
+        console.log(form);
 
-                }
-            }
-
-            function handleResponse(responseObject){
-                if(responseObject.ok){
-                    location.href = 'login.html';
-                }else{
-                    // step one clear list of elements 
-                    // This removes all children while the parent has children 
-                    while(form.messages.firstChild){
-                        form.messages.removeChild(form.messages.firstChild);
-                    }
-
-                    responseObject.messages.array.forEach(message => {
-                        const li = document.createElement('li');
-                        li.textContent = message;
-                        form.messages.appendChild(li);
-                    });
-                    
-                    form.messages.style.display ="block";
-                }
-            }
-        })
+        
     </script>
 </body>
 </html>
