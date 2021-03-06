@@ -51,6 +51,46 @@ public class StoryApprovalHistory {
 		return "StoryApprovalHistory [id=" + id + ", approver_id=" + approverId + ", story_id=" + storyId
 				+ ", status=" + status + ", localDate=" + localDate + "]";
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getApproverId() {
+		return approverId;
+	}
+
+	public void setApproverId(Integer approverId) {
+		this.approverId = approverId;
+	}
+
+	public Integer getStoryId() {
+		return storyId;
+	}
+
+	public void setStoryId(Integer storyId) {
+		this.storyId = storyId;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public LocalDate getLocalDate() {
+		return localDate;
+	}
+
+	public void setLocalDate(LocalDate localDate) {
+		this.localDate = localDate;
+	}
 	
 
 }

@@ -1,5 +1,6 @@
 package com.revature.hibernate;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -19,11 +20,12 @@ public class StoryArtifactHibernate implements StoryArtifactDao {
 	}
 
 	@Override
-	public void addStoryArtifact(StoryArtifact storyArtifact) {
+	public Serializable addStoryArtifact(StoryArtifact storyArtifact) {
 		log.trace("Adding story artifact");
 		Session s = hu.getSession();
-		s.save(storyArtifact);
+		Serializable fact =  s.save(storyArtifact);
 		s.close();
+		return fact;
 	}
 
 	@Override

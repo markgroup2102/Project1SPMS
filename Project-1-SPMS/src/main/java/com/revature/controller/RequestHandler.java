@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.revature.delegates.FrontControllerDelegate;
-import com.revature.delegates.LoginDelegate;
+//import com.revature.delegates.LoginDelegate;
+import com.revature.servlets.FirstServlet;
 
 public class RequestHandler {
 	private Map<String, FrontControllerDelegate> delegateMap;
 	
 	{
 		delegateMap = new HashMap<String, FrontControllerDelegate>();
-		delegateMap.put("user", new LoginDelegate());
+		//delegateMap.put("user", new LoginDelegate());
+		//delegateMap.put("FirstServlet", (FrontControllerDelegate) new FirstServlet());
 	}
 	
 	public FrontControllerDelegate handle(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

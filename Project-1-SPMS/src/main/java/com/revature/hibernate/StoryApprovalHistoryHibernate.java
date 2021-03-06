@@ -18,11 +18,12 @@ public class StoryApprovalHistoryHibernate implements StoryApprovalHistoryDao{
 	}
 
 	@Override
-	public void addStoryApprovalHistory(StoryApprovalHistory sah) {
+	public StoryApprovalHistory addStoryApprovalHistory(StoryApprovalHistory sah) {
 		log.trace("Adding story approval history ");
 		Session s = hu.getSession();
-		s.save(sah);
+		StoryApprovalHistory  hist = (StoryApprovalHistory) s.save(sah);
 		s.close();
+		return hist;
 	}
 
 	@Override
