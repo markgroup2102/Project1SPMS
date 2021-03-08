@@ -1,5 +1,7 @@
 package com.revature.data;
 
+import java.io.Serializable;
+
 import com.revature.models.AdditionalDetailsMessage;
 
 public interface AdditionalDetailRequestDao {
@@ -9,7 +11,7 @@ public interface AdditionalDetailRequestDao {
 	 * @param adm
 	 * @return
 	 */
-	public void createAdditionalDetailsMessage(
+	public Serializable createAdditionalDetailsMessage(
 			AdditionalDetailsMessage adm);
 	
 	/**
@@ -24,10 +26,10 @@ public interface AdditionalDetailRequestDao {
 	/**
 	 * This will this will use the story id from the adm to read the most
 	 * current version
-	 * @param adm
+	 * @param storyId TODO
 	 * @return
 	 */
-	public AdditionalDetailsMessage readAdditionalDetailsMessage(
-			AdditionalDetailsMessage adm);
+	public AdditionalDetailsMessage readAdditionalDetailsMessageByStory(
+			Integer storyId);
 	
 }

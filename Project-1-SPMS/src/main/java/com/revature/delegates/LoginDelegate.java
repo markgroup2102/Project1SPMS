@@ -7,10 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.beans.Person;
-import com.revature.exceptions.NonUniqueUsernameException;
+import com.revature.models.Person;
 import com.revature.services.PersonService;
-import com.revature.services.PersonServiceImpl;
+
 
 /*
  * Endpoints:
@@ -23,21 +22,24 @@ import com.revature.services.PersonServiceImpl;
  */
 public class LoginDelegate implements FrontControllerDelegate {
 	private PersonService pServ = 
-			new PersonServiceImpl();
+			new PersonService();
 	private ObjectMapper om = new ObjectMapper();
 	
 	@Override
 	public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String path = (String) req.getAttribute("path");
 		
+		
+		
 		// path at=fet user 
 		if (path == null || path.equals("")) {
+			
 			if ("POST".equals(req.getMethod())) {
 				// register a user
 				Person p = (Person) om.readValue(req.getInputStream(), Person.class);
 				try {
-					p.setId(pServ.addPerson(p));
-				} catch (NonUniqueUsernameException e) {
+					//p.setId(pServ.addPerson(p));
+				} catch (Exception e) {
 					resp.sendError(HttpServletResponse.SC_CONFLICT, "Username already exists");
 				}
 				if (p.getId() == 0) {
@@ -54,7 +56,10 @@ public class LoginDelegate implements FrontControllerDelegate {
 				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 			}
 		} else if (path.contains("login")) {
+			
 			if ("POST".equals(req.getMethod()))
+				System.out.println("BLAH!");
+				resp.sendError(404, "You made it here");
 				logIn(req, resp);
 			else if ("DELETE".equals(req.getMethod()))
 				req.getSession().invalidate();
@@ -66,17 +71,20 @@ public class LoginDelegate implements FrontControllerDelegate {
 	}
 	
 	private void logIn(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String username = req.getParameter("user");
-		String password = req.getParameter("pass");
+		String usernameString = req.getParameter("user");
+		Integer username = 0;
+		if(usernameString != null) {
+			try {
+				username = Integer.valueOf(usernameString);
+			}catch(Exception e ) {
+				
+			}
+		}
 		
-		Person p = pServ.getPersonByUsername(username);
+		Person p = pServ.getPersonById(username);
 		if (p != null) {
-			if (p.getPassword().equals(password)) {
 				req.getSession().setAttribute("person", p);
 				resp.getWriter().write(om.writeValueAsString(p));
-			} else {
-				resp.sendError(404, "Incorrect password.");
-			}
 		} else {
 			resp.sendError(404, "No user found with that username.");
 		}
@@ -93,17 +101,17 @@ public class LoginDelegate implements FrontControllerDelegate {
 				}
 				break;
 			case "PUT":
-				String password = req.getParameter("pass");
+				//String password = req.getParameter("pass");
 				Person person = (Person) req.getSession().getAttribute("person");
 				if (person != null) {
-					person.setPassword(password);
-					pServ.updatePerson(person);
+					//person.setPassword(password);
+					//pServ.updatePerson(person);
 				} else
 					resp.sendError(HttpServletResponse.SC_UNAUTHORIZED);
 				break;
 			case "DELETE":
 				Person user = om.readValue(req.getInputStream(), Person.class);
-				pServ.deletePerson(user);
+				//pServ.deletePerson(user);
 				break;
 			default:
 				resp.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);

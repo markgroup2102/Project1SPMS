@@ -17,10 +17,13 @@ public class FrontController extends DefaultServlet {
 	// so that we can give them to the handler to get back the
 	// appropriate delegate, then call that delegate
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
 		FrontControllerDelegate fcd = rh.handle(req, resp);
+		
 		
 		if (req.getRequestURI().substring(req.getContextPath().length()).startsWith("/static")) {
 			super.doGet(req,resp);
+			
 		} else {
 			if (fcd != null)
 				fcd.process(req, resp);
@@ -43,6 +46,7 @@ public class FrontController extends DefaultServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
 		process(request, response);
 	}
 

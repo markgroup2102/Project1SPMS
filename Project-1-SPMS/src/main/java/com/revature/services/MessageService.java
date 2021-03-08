@@ -1,9 +1,15 @@
 package com.revature.services;
 
+import org.apache.log4j.Logger;
+
+import com.revature.data.AdditionalDetailRequestDao;
+import com.revature.data.DaoFactory;
 import com.revature.models.AdditionalDetailsMessage;
 
 public class MessageService {
-
+	private Logger log = Logger.getLogger(MessageService.class.getName());
+	private AdditionalDetailRequestDao admdao = DaoFactory.getAdditionalDetailRequestDao();
+	
 	public MessageService() {
 		// TODO Auto-generated constructor stub
 	}
@@ -13,13 +19,23 @@ public class MessageService {
 	 * @param adm
 	 * @return
 	 */
-	public AdditionalDetailsMessage sendNewAdditionalDetailRequest(AdditionalDetailsMessage adm) {
-		return adm;
+	public Integer sendNewAdditionalDetailRequest(AdditionalDetailsMessage adm) {
+		log.info("USER STORY: Sending a request for more information on a book" );
+		if(adm == null) {
+			log.debug("Null value detected, returning null.");
+			return null;
+		}
+		return (Integer) admdao.createAdditionalDetailsMessage(adm);
+		
 	}
 	
 	
-	public AdditionalDetailsMessage getAdditionalDetailRequest(AdditionalDetailsMessage entity) {
-		return entity;
+	public AdditionalDetailsMessage getAdditionalDetailRequest(Integer storyId) {
+		if(storyId == null) {
+			return null;
+		}
+		
+		return admdao.readAdditionalDetailsMessageByStory(storyId);
 	}
 	
 	/**

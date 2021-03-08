@@ -1,5 +1,7 @@
 package com.revature.hibernate;
 
+import java.io.Serializable;
+
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,11 +19,12 @@ public class AdditionalDetailsRequestHibernate implements AdditionalDetailReques
 	}
 
 	@Override
-	public void createAdditionalDetailsMessage(AdditionalDetailsMessage adm) {
+	public Serializable createAdditionalDetailsMessage(AdditionalDetailsMessage adm) {
 		log.trace("Creating a new message request ");
 		Session s =  HibernateUtil.getHibernateUtil().getSession();
-		s.save(adm);
+		Serializable messageId = s.save(adm);
 		s.close();
+		return messageId;
 		
 	}
 
@@ -42,10 +45,10 @@ public class AdditionalDetailsRequestHibernate implements AdditionalDetailReques
 	}
 
 	@Override
-	public AdditionalDetailsMessage readAdditionalDetailsMessage(AdditionalDetailsMessage adm) {
+	public AdditionalDetailsMessage readAdditionalDetailsMessageByStory(Integer storyId) {
 		log.trace("Reading detail message request");
 		Session s = HibernateUtil.getHibernateUtil().getSession();
-		adm = s.get(AdditionalDetailsMessage.class, adm.getStoryId());
+		AdditionalDetailsMessage adm = s.get(AdditionalDetailsMessage.class, storyId);
 		s.close();
 		return adm;
 	}

@@ -1,0 +1,72 @@
+
+<html>
+<!-- Original Code template by author dcode https://www.youtube.com/watch?v=zvt8ff3d63Q-->
+<!-- Stripe design based on template from https://css-tricks.com/stripes-css/ -->
+<!-- Font border instructions provided by https://www.w3schools.com/cssref/css3_pr_text-shadow.asp-->
+<!-- Changed some colors and fonts added title and page intro -->
+
+<head>
+    <title> Welcome To S.P.M.S. Story Pitch And Management System</title>
+</head>
+
+<style>
+    #form-messages {
+        background: repeating-linear-gradient(
+        45deg,
+        yellow,
+        yellow 10px,
+        darkgrey 10px,
+        darkgrey 20px
+        );
+        background-color: yellow;
+        border: 5px solid black;
+        color:red;
+        display: block;
+        font-size: 22px;
+        font-weight: bold;
+        text-shadow:1px 1px 3px black, -1px -1px 3px black;
+        text-align: center;
+        margin-bottom: 10px;
+        padding: 10px 25px;
+        max-width: 250px;
+    }
+</style>
+
+<body id="main">
+    
+    <h1>Welcome to "Publish this!" <br>
+    </h1>
+  
+    <h1> Login for SPMS </h1>
+    <div class ="form">
+        <!-- error messages -->
+        <ul id="form-messages"></ul>
+    
+    </div>
+
+    <form action="/login" method="GET">
+        <!-- user name-->
+        <label for="username">Login ID Number:</label><br>
+        <input id= "username" type="text" spellcheck="false"><br>
+
+        <!-- loging button-->
+        <button id="btn-submit" type="submit">Log in</button><br>
+    </form>
+    
+    <form id="login">
+
+    </form>
+
+    <script>
+        document.getElementById("login").innerHTML =
+            `<label for='username'>User id</label>
+             <input type='number'></input>
+             <button type='button'>Login</button>`
+
+        const action = document.getElementById("login");
+        action.addEventListener("click", ()=>{
+            fetch('/login',{method="GET"});
+        });
+    </script>
+</body>
+</html>

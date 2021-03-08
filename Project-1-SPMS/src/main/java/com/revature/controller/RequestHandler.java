@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.revature.delegates.FrontControllerDelegate;
+import com.revature.delegates.LoginDelegate;
 //import com.revature.delegates.LoginDelegate;
 import com.revature.servlets.FirstServlet;
 
@@ -17,7 +18,7 @@ public class RequestHandler {
 	
 	{
 		delegateMap = new HashMap<String, FrontControllerDelegate>();
-		//delegateMap.put("user", new LoginDelegate());
+		delegateMap.put("user", new LoginDelegate());
 		//delegateMap.put("FirstServlet", (FrontControllerDelegate) new FirstServlet());
 	}
 	
@@ -27,7 +28,7 @@ public class RequestHandler {
 		if ("OPTIONS".equals(req.getMethod())) {
 			return (r1, r2) -> {};
 		}
-		
+		//resp.printwriter
 		// first, we get the URI from the request
 		StringBuilder uriString = new StringBuilder(req.getRequestURI());
 		// at this point, uriString = localhost:8080/CatApp/cat/4
