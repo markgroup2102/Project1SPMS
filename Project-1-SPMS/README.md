@@ -7,26 +7,41 @@ SPMS, or Story Pitch Management System, is a full-stack web application that all
 ## Technologies Used
 
 * JavaEE - version 1.8
-* log4j     - version 1.2.17
-* hibernate - version 5.4.28 Final
-* javax.servlet.jsp-api - version 2.3.1
-* tomcat - version 9.0.41
-* jackson - version 2.11.4
-* postgresql - version 42.2.18
-* junit-jupiter-engine - version 5.7.0
+* Log4j     - version 1.2.17
+* Hibernate - version 5.4.28 Final
+* Javax.servlet.jsp-api - version 2.3.1
+* Tomcat - version 9.0.41
+* Jackson - version 2.11.4
+* PostgreSQL - version 42.2.18
+* Junit-jupiter-engine - version 5.7.0
 * HTML - version 5.0
 * CSS - version 3.0
 * ECMAScript -version 2020
+* Amazon AWS RDS
 
 ## Features
 
 List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
-* Awesome feature 3
+* Stores and retrieves Data on a Postgres database hosted on an AWS Relational Database Service. 
 
 To-do list:
 * Wow improvement to be done 1
 * Wow improvement to be done 2
 
 ## Getting Started
+
+You will need the latest JDK 
+Download and install, suggested:
+https://openjdk.java.net/
+
+You will need Eclipse Enterprise Edition
+
+Clone the repository 
+git clone https://github.com/markgroup2102/Project1SPMS.git
+
+Import the project into Eclipse using maven. 
+
+
+## License
+
+This project uses the following license: [MIT LICENSE](https://mit-license.org/).
