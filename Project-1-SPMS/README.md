@@ -24,9 +24,6 @@ SPMS, or Story Pitch Management System, is a full-stack web application that all
 List of features ready and TODOs for future development
 * Stores and retrieves Data on a Postgres database hosted on an AWS Relational Database Service. 
 
-To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
 
 ## Getting Started
 
